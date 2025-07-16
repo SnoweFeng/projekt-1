@@ -7,7 +7,7 @@ public static class Minigame
         Random rnd = new Random();
         string npcChoice = choices[rnd.Next(choices.Length)];
         Console.WriteLine("Choose [r]ock, [p]aper, [s]cissors:");
-        string input = Console.ReadLine()?.ToLower();
+        string input = Console.ReadLine()?.ToLower() ?? String.Empty;
         string playerChoice = input switch
         {
             "r" => "rock",

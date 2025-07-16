@@ -1,8 +1,8 @@
 using System;
 public class Game
 {
-    private World world;
-    private Player player;
+    private World? world;
+    private Player? player;
     private bool isRunning = true;
     public void Start()
     {
@@ -30,8 +30,9 @@ public class Game
     }
     private void HandleInput()
     {
+        if (world == null || player == null) return;
         Console.WriteLine("Use WASD to move, I to pick up item or interact, U to use item:");
-        string input = Console.ReadLine()?.ToLower();
+        string input = Console.ReadLine()?.ToLower() ?? String.Empty;
         switch (input)
         {
             case "w": player.Move(0, -1, world); break;

@@ -7,7 +7,7 @@ public class World
     public Tile[,] Map = new Tile[Width, Height];
     public List<NPC> Npcs = new List<NPC>();
     public List<Item> Items = new List<Item>();
-    private Player player;
+    private Player? player;
     private Random rand = new Random();
     public World()
     {
@@ -27,7 +27,7 @@ public class World
         {
             for (int x = 0; x < Width; x++)
             {
-                if (player.X == x && player.Y == y) Console.Write("@");
+                if (player!=null && player.X == x && player.Y == y) Console.Write("@");
                 else if (Map[x, y].IsWall) Console.Write("#");
                 else if (Map[x, y].HasNPC) Console.Write("N");
                 else if (Map[x, y].HasItem) Console.Write("I");
@@ -36,10 +36,12 @@ public class World
             }
             Console.WriteLine();
         }
-        Console.WriteLine($"Health: {player.Health} | Stamina: {player.Stamina} | Inventory: {player.Inventory.Count} items");
+        if (player != null)
+            Console.WriteLine($"Health: {player.Health} | Stamina: {player.Stamina} | Inventory: {player.Inventory.Count} items");
     }
     public void Update()
     {
+        if (player == null) return;
         foreach (var npc in Npcs) npc.Update(this, player);
     }
     private void GenerateMap()
